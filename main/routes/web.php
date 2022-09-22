@@ -16,3 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/camera/settings/view', [App\Http\Controllers\CameraController::class, 'index'])->name('camera');
+Route::post('/camera/settings/add', [App\Http\Controllers\CameraController::class, 'add'])->name('camera_add');
+
+Route::get('/report/view', [App\Http\Controllers\HomeController::class, 'report'])->name('report');
