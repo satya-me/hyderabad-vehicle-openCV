@@ -27,11 +27,11 @@
                                 <th>
                                     <h6 class="title_table">Date Range Fillter</h6>
                                     <!-- <select id="status-filter" class="form-control">
-                          <option>Any</option>
-                          <option>Not Started</option>
-                          <option>In Progress</option>
-                          <option>Completed</option>
-                        </select> -->
+                                                                                          <option>Any</option>
+                                                                                          <option>Not Started</option>
+                                                                                          <option>In Progress</option>
+                                                                                          <option>Completed</option>
+                                                                                        </select> -->
                                     <input type="text" name="datetimes" class="form-control input_style">
                                 </th>
 
@@ -52,56 +52,58 @@
 
 
                         <table id="task-list-tbl" class="table">
-                            <thead>
+                            <thead class="thead-light">
                                 <tr>
                                     <th>Sl No</th>
+                                    <th>Device Id</th>
                                     <th>Camra Id</th>
-                                    <th> Date</th>
-                                    <th>Volume</th>
+                                    <th>Date</th>
+                                    <th>Count</th>
+                                    <th>Image</th>
                                 </tr>
                             </thead>
 
                             <tbody>
+                                @foreach ($report as $k => $v)
+                                    <tr id="task-1" class="task-list-row" data-task-id="1" data-user="Larry"
+                                        data-status="In Progress" data-milestone="Milestone 2" data-priority="Urgent"
+                                        data-tags="Tag 2">
+                                        <td>{{ ++$k }}</td>
+                                        <td>{{ $v->device_id }}</td>
+                                        <td>{{ $v->camera_id }}</td>
+                                        <td>{{ $v->created_at }}</td>
+                                        <td>{{ $v->count }}</td>
+                                        <td>
+                                            {{-- <button class="img_popup_btn" >
+                                            </button> --}}
+                                            <i class="fa fa-picture-o fa-3x" aria-hidden="true" data-toggle="modal"
+                                                data-target="#{{ 'image' . $v->id }}"></i>
+                                        </td>
+                                    </tr>
 
-                                <tr id="task-1" class="task-list-row" data-task-id="1" data-user="Larry"
-                                    data-status="In Progress" data-milestone="Milestone 2" data-priority="Urgent"
-                                    data-tags="Tag 2">
-                                    <td>1</td>
-                                    <td>1A</td>
-                                    <td>09/24/2015</td>
-                                    <td>500</td>
-                                </tr>
+                                    <div class="modal fade bd-example-modal-lg"
+                                        id="{{ 'image' . $v->id }}" tabindex="-1" role="dialog"
+                                        aria-labelledby="{{ 'image' . $v->id }}Title" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="{{ 'image' . $v->id }}Title">img</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                        aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="modal_img">
+                                                        <img class="fx" src="{{ $path . $v->image }}">
+                                                    </div>
+                                                </div>
 
-                                <tr id="task-2" class="task-list-row" data-task-id="2" data-user="Larry"
-                                    data-status="Not Started" data-milestone="Milestone 2" data-priority="Low"
-                                    data-tags="Tag 1">
-                                    <td>2</td>
-                                    <td>2A</td>
-                                    <td>09/24/2018</td>
-                                    <td>600</td>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
 
-                                </tr>
-
-                                <tr id="task-3" class="task-list-row" data-task-id="3" data-user="Donald"
-                                    data-status="Not Started" data-milestone="Milestone 1" data-priority="Low"
-                                    data-tags="Tag 3">
-                                    <td>3</td>
-                                    <td>2B</td>
-                                    <td>05/24/2014</td>
-                                    <td>500</td>
-
-                                </tr>
-
-
-                                <tr id="task-4" class="task-list-row" data-task-id="4" data-user="Donald"
-                                    data-status="Completed" data-milestone="Milestone 1" data-priority="High"
-                                    data-tags="Tag 1">
-                                    <td>1</td>
-                                    <td>1A</td>
-                                    <td>09/24/2015</td>
-                                    <td>500</td>
-
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -109,7 +111,7 @@
             </div>
         </div>
         <div class="download_btn">
-            <div class="download-container">
+            {{-- <div class="download-container">
                 <a href="#" class="download-btn">Export csv <i class="fas fa-download"></i></a>
                 <div class="countdown"></div>
                 <div class="pleaseWait-text">Please wait ...</div>
@@ -118,9 +120,9 @@
                         target="_top">click
                         here</a>
                 </div>
-            </div>
+            </div> --}}
             <div class="download-container">
-                <a href="#" class="download-btn">Export Pdf <i class="fas fa-download"></i></a>
+                <a href="#" class="download-btn">Export Pdf <i class="fa fa-file-pdf-o" aria-hidden="true"></i></a>
                 <div class="countdown"></div>
                 <div class="pleaseWait-text">Please wait ...</div>
                 <div class="manualDownload-text">
@@ -130,5 +132,6 @@
                 </div>
             </div>
         </div>
+
     </div>
 @endsection

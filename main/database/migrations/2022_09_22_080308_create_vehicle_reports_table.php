@@ -15,6 +15,7 @@ class CreateVehicleReportsTable extends Migration
     {
         Schema::create('vehicle_reports', function (Blueprint $table) {
             $table->id();
+            $table->string('device_id');
             $table->string('camera_id');
             $table->string('count');
             $table->string('image');

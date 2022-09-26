@@ -21,3 +21,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::post('/report', [App\Http\Controllers\ReportController::class, 'add']);
+Route::get('/report', [App\Http\Controllers\ReportController::class, 'add']);
