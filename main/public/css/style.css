@@ -21616,7 +21616,7 @@ input:focus {
   outline: none;
 }
 
-@font-face {
+/* @font-face {
   font-family: 'Roboto';
   src: url("../fonts/Roboto/Roboto-Light.eot");
   src: url("../fonts/Roboto/Roboto-Light.eot?#iefix") format("embedded-opentype"), url("../fonts/Roboto/Roboto-Light.woff2") format("woff2"), url("../fonts/Roboto/Roboto-Light.woff") format("woff"), url("../fonts/Roboto/Roboto-Light.ttf") format("truetype");
@@ -21654,7 +21654,7 @@ input:focus {
   src: url("../fonts/Roboto/Roboto-Black.eot?#iefix") format("embedded-opentype"), url("../fonts/Roboto/Roboto-Black.woff2") format("woff2"), url("../fonts/Roboto/Roboto-Black.woff") format("woff"), url("../fonts/Roboto/Roboto-Black.ttf") format("truetype");
   font-weight: 900;
   font-style: normal;
-}
+} */
 
 .bg-twitter {
   background: #2caae1;
@@ -25593,7 +25593,7 @@ dl li {
   margin: 0 auto;
   width: 100%;
   margin: 0 auto;
-  height: 100vh;
+  height: 90vh;
 }
 
 .filterable {
@@ -25665,6 +25665,21 @@ dl li {
   position: relative;
 }
 
+.btn_style_danger {
+  display: inline-block;
+  padding: 1rem 2rem;
+  background: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 0.5rem;
+  margin-top: 0.5rem;
+  transition: 0.5s linear;
+  position: relative;
+}
+/* #dc3545 */
+.not_change{
+color: tomato;
+}
 
 
 .btn_style:hover {
@@ -25930,4 +25945,15 @@ select,
 .form_area{
   max-width: 500px;
   margin: 0 auto;
+}
+
+.btn_search{
+height: 2rem;
+line-height: 2rem;
+outline: 0;
+border: none;
+background: #4d83ff;
+padding: 0 1rem;
+color: #fff;
+border-radius: 0.2rem;
 }

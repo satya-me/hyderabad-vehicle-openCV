@@ -1,5 +1,8 @@
 @extends('layouts.master')
 
+@section('js')
+<script src="{{ asset('/main/public') }}/js/custom.js" type="text/javascript"></script>
+@endsection
 @section('content')
     <div class="main_section_area">
         <div class="main_camera_setting_area">
@@ -28,20 +31,25 @@
                                 <div class="modal-body">
                                     @csrf
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Location Name</label>
-                                        <input type="text" name="location_name" class="form-control"
-                                            id="exampleInputEmail1" aria-describedby="emailHelp"
-                                            placeholder="Enter Location Name">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="exampleInputEmail1">Camera Id</label>
-                                        <input type="text" name="camera_id" class="form-control" id="exampleInputEmail1"
+                                        <label for="">Location Name</label>
+                                        <input type="text" name="location_name" class="form-control" id=""
                                             aria-describedby="emailHelp" placeholder="Enter Location Name">
                                     </div>
                                     <div class="form-group">
-                                        <label for="exampleInputEmail1">Latitude and Longitude</label>
-                                        <input type="text" name="lat_long" class="form-control" id="exampleInputEmail1"
-                                            aria-describedby="emailHelp" placeholder="Enter Location Name">
+                                        <label for="">Camera Id <small class="not_change">
+                                                {{ " :(You can't change camera id after submit.)" }}</small></label>
+                                        <input type="text" name="camera_id" class="form-control" id=""
+                                            aria-describedby="emailHelp" placeholder="Enter Camera Id">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Latitude :</label>
+                                        <input type="text" name="lat" class="form-control"
+                                            placeholder="Enter Latitude">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Longitude :</label>
+                                        <input type="text" name="long" class="form-control"
+                                            placeholder="Enter Longitude">
                                     </div>
 
                                 </div>
@@ -64,6 +72,7 @@
                             <th scope="col">Camera Id</th>
                             <th scope="col">Date Of Created</th>
                             <th scope="col">Status</th>
+                            <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -73,8 +82,69 @@
                                 <td>{{ $v->location_name }}</td>
                                 <td>{{ $v->camera_id }}</td>
                                 <td>{{ $v->created_at }}</td>
-                                <td>{{ $v->status ? $v->status : ' Failed' }}</td>
+                                <td id="{{ $v->id.'_'.$v->camera_id }}"><iconify-icon icon="line-md:loading-alt-loop" style="color: blue;" width="28" height="28"></iconify-icon></td>
+                                <td>
+                                    <span class="badge badge-danger" data-toggle="modal"
+                                        data-target="#edit_camera{{ $v->id }}">
+                                        <i class="fa fa-wrench" aria-hidden="true"></i>
+                                    </span>
+                                    {{-- <a href="{{ route('edit_camera', $v->id) }}">
+                                    </a> --}}
+                                </td>
                             </tr>
+                            @php
+                                $lat = explode(',', $v->location)[0];
+                                $long = explode(',', $v->location)[1];
+                            @endphp
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="edit_camera{{ $v->id }}" tabindex="-1" role="dialog"
+                                aria-labelledby="edit_cameraLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title text-uppercase" id="edit_cameraLabel">{{ $v->camera_id }}
+                                            </h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form action="{{ route('edit_camera') }}" method="post">
+                                            <div class="modal-body">
+                                                @csrf
+                                                <input type="hidden" name="cam_id" value="{{ $v->id }}">
+                                                <div class="form-group">
+                                                    <label for="">Location Name</label>
+                                                    <input type="text" name="location_name" class="form-control"
+                                                        value="{{ $v->location_name }}"
+                                                        placeholder="Enter Location Name">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="">Camera Id <small class="not_change">
+                                                            {{ " :(You can't change camera id!)" }}</small></label>
+                                                    <input type="text" class="form-control"
+                                                        value="{{ $v->camera_id }}" readonly>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="">Latitude :</label>
+                                                    <input type="text" name="lat" value="{{$lat}}" class="form-control"
+                                                        placeholder="Enter Latitude">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="">Longitude :</label>
+                                                    <input type="text" name="long" value="{{$long}}" class="form-control"
+                                                        placeholder="Enter Longitude">
+                                                </div>
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn_style_danger">Update <i
+                                                        class="fa fa-video-camera" aria-hidden="true"></i></button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         @endforeach
                     </tbody>
                 </table>

@@ -4,6 +4,7 @@
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>international institute of information technology</title>
     <!-- plugins:css -->
@@ -19,6 +20,7 @@
     <link rel="stylesheet" href="{{ asset('/main/public') }}/css/style.css">
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ asset('/main/public') }}/images/favicon.png" />
+    <script src="https://code.iconify.design/iconify-icon/1.0.1/iconify-icon.min.js"></script>
 
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
     <!-- endinject -->
@@ -28,6 +30,9 @@
 </head>
 
 <body>
+    <script>
+        var ajax_url = "{{ env('AJAX_URL') }}";
+    </script>
     <div class="container-scroller">
 
         <!-- partial:partials/_navbar.html -->
@@ -118,6 +123,17 @@
                             <span class="menu-title">Camera Setting</span>
                         </a>
                     </li>
+                    @if (env('APP_MODE') == 'development')
+                        <br><br>
+                        <br><br>
+                        <br><br>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('clear_report') }}" style="background-color: blue;">
+                                <i class="mdi mdi-database-minus menu-icon"></i>
+                                <span class="menu-title text-danger">CLR All Report For Developer</span>
+                            </a>
+                        </li>
+                    @endif
 
                 </ul>
             </nav>
@@ -158,7 +174,7 @@
 
     <script src="{{ asset('/main/public') }}/js/jquery.cookie.js" type="text/javascript"></script>
     <script src="https://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
-    <script src="{{ asset('/main/public') }}/js/custom.js" type="text/javascript"></script>
+    @yield('js')
 
     <!-- End custom js for this page-->
 
@@ -173,11 +189,11 @@
     <script>
         $(function() {
             $('input[name="datetimes"]').daterangepicker({
-                timePicker: true,
+                timePicker: false,
                 startDate: moment().startOf('hour'),
                 endDate: moment().startOf('hour').add(32, 'hour'),
                 locale: {
-                    format: 'M/DD hh:mm A'
+                    format: 'YYYY/MM/DD'
                 }
             });
         });
@@ -185,5 +201,17 @@
     <script src="{{ asset('/main/public') }}/js/download.js"></script>
 
 </body>
+{{-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+</script> --}}
+<script src="{{ asset('/main/public') }}/js/tableHTMLExport.js"></script>
+<script>
+    $('#csv').on('click', function() {
+        $("#example").tableHTMLExport({
+            type: 'csv',
+            filename: 'sample.csv'
+        });
+    })
+</script>
 
 </html>

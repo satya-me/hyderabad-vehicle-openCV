@@ -22,3 +22,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/report', [App\Http\Controllers\ReportController::class, 'add']);
 Route::get('/report', [App\Http\Controllers\ReportController::class, 'add']);
+
+
+
+Route::get('/ajax/cam/info', [App\Http\Controllers\ReportController::class, 'information']);
+Route::get('/ajax/cam/info_dash', [App\Http\Controllers\ReportController::class, 'information']);
+
